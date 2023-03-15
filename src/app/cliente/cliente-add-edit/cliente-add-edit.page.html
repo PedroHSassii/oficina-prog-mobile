@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro de CLIENTES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding-top>
+  <form #form="ngForm" [formGroup]="clienteForm" (ngSubmit)="submit()">
+    <ion-item no-padding> 
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input formControlName="nome" type="text"></ion-input>
+      <small class="error-message" *ngIf="(clienteForm.get('nome')?.errors?.['required'] || clienteForm.get('nome')?.errors?.['minlength'] || clienteForm.get('nome')?.errors?.['maxlength']) && (form.submitted||clienteForm.get('nome')?.touched)">Informe o nome (3 a 50 caracteres)</small>
+    </ion-item >
+    <ion-item no-padding> 
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email" type="email" ></ion-input>
+      <small class="error-message" *ngIf="(clienteForm.get('email')?.errors?.['required'] || clienteForm.get('email')?.errors?.['email']) && (form.submitted||clienteForm.get('email')?.touched)">Informe um Email</small>
+    </ion-item >
+    <ion-item no-padding> 
+      <ion-label position="floating">Telefone</ion-label>
+      <ion-input formControlName="tel" type="tel" ></ion-input>
+      <small class="error-message" *ngIf="clienteForm.get('tel')?.errors?.['required'] && (form.submitted||clienteForm.get('tel')?.touched)">Informe o Telefone</small>
+    </ion-item >
+    <ion-item no-padding>  
+      <ion-label position="floating">Renda</ion-label>
+      <ion-input formControlName="renda" type="number" ></ion-input>
+      <small class="error-message" *ngIf="(clienteForm.get('renda')?.errors?.['required'] || clienteForm.get('renda')?.errors?.['min']) && (form.submitted||clienteForm.get('renda')?.touched)">Informe uma Renda Positiva</small>
+    </ion-item >
+    <ion-item no-padding>
+      <ion-label position="floating">Data de Nascimento</ion-label>
+      <ion-input formControlName="nascimento" type="text" ></ion-input>
+      <small class="error-message" *ngIf="clienteForm.get('nascimento')?.errors?.['required'] && (form.submitted||clienteForm.get('nascimento')?.touched)">Informe sua Data de Nascimento</small>
+    </ion-item > 
+      <ion-button shape="round" color="primary" expand="block" padding type="submit" >Confirmar</ion-button>
+  </form>
+</ion-content>
