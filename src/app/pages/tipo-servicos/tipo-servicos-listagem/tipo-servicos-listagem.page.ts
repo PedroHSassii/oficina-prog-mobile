@@ -10,13 +10,14 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./tipo-servicos-listagem.page.scss'],
 })
 export class TipoServicosListagemPage implements OnInit {
-
+  public tiposServicos!: any;
+  
   @ViewChild('slidingList') slidingList!: IonList;
 
-  constructor(private tipoServicoService: TipoServicosService,
-              private toastService: ToastService) { }
-
-  public tiposServicos!: any;
+  constructor(
+    private tipoServicoService: TipoServicosService,
+    private toastService: ToastService
+  ) { }
 
   ngOnInit() {
     this.tiposServicos = this.tipoServicoService.getAll();

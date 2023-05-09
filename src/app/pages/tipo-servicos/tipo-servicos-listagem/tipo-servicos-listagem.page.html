@@ -6,8 +6,8 @@
 
 <ion-content padding>
   <ion-list #slidingList>
-    <ion-item-sliding *ngFor="let tipoServico of tiposServicos" routerLink='/tipo-servicos-add-edit/{{tipoServico.id}}'>
-      <ion-item routerLink='tipo-servicos-add-edit/{{tipoServico.id}}'>
+    <ion-item-sliding *ngFor="let tipoServico of tiposServicos">
+      <ion-item routerLink='/tipo-servicos-add-edit/{{tipoServico.id}}'>
         <ion-label>
           <h2>{{tipoServico.nome}}</h2>
           <p style="text-align:right">R$ {{tipoServico.valor}}</p>

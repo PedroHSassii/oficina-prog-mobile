@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Peca } from 'src/app/models/peca.model';
-import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
+import { Peca } from 'src/app/models/peca.model';
+import { PecasService } from 'src/app/services/pecas.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { PecasService } from 'src/app/services/pecas.services';
+
 
 @Component({
-  templateUrl: './pecas-add-edit.page.html'
+  templateUrl: './pecas-add-edit.page.html',
 })
+
 export class PecasAddEditPage implements OnInit {
   private peca!: Peca;
   public modoDeEdicao = false;
@@ -19,9 +21,9 @@ export class PecasAddEditPage implements OnInit {
     private route: ActivatedRoute,
     private toastService: ToastService,
     private pecasService: PecasService,
-    private router: Router,
+    private router: Router
   ) { }
-  
+
   iniciarEdicao() {
     this.modoDeEdicao = true;
   }
@@ -32,22 +34,22 @@ export class PecasAddEditPage implements OnInit {
   }
 
   async submit() {
-    await this.pecasService.update(this.pecasForm.value);
+    await this.pecasService.update(this.pecasForm.value);;
     this.peca = this.pecasForm.value;
 
-    // Atualizar/Inserir objeto de maneira persistida
+    //atualizar inserir objeto de maneira persistida
     this.toastService.presentToast('Gravação bem sucedida', 3000, 'top');
     this.modoDeEdicao = false;
-    // Navegar para a página principal
+    //navegar para pag principal
     this.router.navigateByUrl('');
   }
 
   async ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id && Guid.isGuid(id)) {
+    if(id && Guid.isGuid(id)) {
       this.peca = await this.pecasService.getById(id);
     } else {
-      this.peca = {id: Guid.createEmpty(), nome: '', valor: 0.00 };
+      this.peca = {id: Guid.createEmpty(), nome: '', valor: 0.00};
       this.modoDeEdicao = true;
     }
     this.pecasForm = this.formBuilder.group({

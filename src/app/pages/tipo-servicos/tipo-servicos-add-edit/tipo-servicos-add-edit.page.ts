@@ -10,12 +10,10 @@ import { ToastService } from 'src/app/services/toast.service';
   templateUrl: './tipo-servicos-add-edit.page.html',
   styleUrls: ['./tipo-servicos-add-edit.page.scss'],
 })
-
 export class TipoServicosAddEditPage implements OnInit {
-
   private tipoServico!: TipoServico;
   public modoDeEdicao = false;
-  public tiposServicosForm!: FormGroup;
+  public tipoServicosForm!: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,34 +23,34 @@ export class TipoServicosAddEditPage implements OnInit {
     private router: Router
   ) { }
 
-  iniciarEdicao() {
+  iniciarEdicao(){
     this.modoDeEdicao = true;
   }
 
   ngOnInit() {
     const id: number = Number(this.route.snapshot.paramMap.get('id'));
-    if (id > 0) {
+    if (id > 0){
       this.tipoServico = this.tipoServicoService.getById(id);
     } else {
       this.tipoServico = {id, nome: '', valor: 0.00};
       this.modoDeEdicao = true;
     }
-    this.tiposServicosForm = this.formBuilder.group({
+    this.tipoServicosForm = this.formBuilder.group({
       id: [this.tipoServico.id],
       nome: [this.tipoServico.nome, Validators.required],
       valor: [this.tipoServico.valor, Validators.required]
     });
   }
 
-  submit() {
-    this.tipoServicoService.update(this.tiposServicosForm.value);
+  submit(){
+    this.tipoServicoService.update(this.tipoServicosForm.value);
     this.toastService.presentToast('Gravação bem sucedida', 3000, 'top');
     this.router.navigateByUrl('');
     this.modoDeEdicao = false;
   }
-
-  cancelarEdicao() {
-    this.tiposServicosForm.setValue(this.tipoServico);
+  cancelarEdicao(){
+    this.tipoServicosForm.setValue(this.tipoServico);
     this.modoDeEdicao = false;
   }
+
 }

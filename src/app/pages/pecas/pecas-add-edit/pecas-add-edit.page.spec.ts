@@ -1,11 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
+
 import { PecasAddEditPage } from './pecas-add-edit.page';
 
 describe('PecasAddEditPage', () => {
   let component: PecasAddEditPage;
   let fixture: ComponentFixture<PecasAddEditPage>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [ PecasAddEditPage ],
+      imports: [IonicModule.forRoot()]
+    }).compileComponents();
+
     fixture = TestBed.createComponent(PecasAddEditPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
