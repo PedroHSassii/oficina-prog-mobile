@@ -1,6 +1,8 @@
-import { Injectable } from "@angular/core";
-import { CapacitorSQLite, SQLiteConnection, SQLiteDBConnection } from "@capacitor-community/sqlite";
-import { Capacitor } from "@capacitor/core";
+import { Injectable } from '@angular/core';
+import { CapacitorSQLite, SQLiteConnection, SQLiteDBConnection } from '@capacitor-community/sqlite';
+import { Capacitor } from '@capacitor/core';
+import { createSchema }  from './database.statements';
+
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +40,16 @@ export class DatabaseService {
         } else {
             return Promise.reject(new Error(`Nenhuma conexão disponível para ${database}`));
         }
+    }
+
+    private async createSchema (db: SQLiteConnection): Promise<void> {
+        await db.open();
+        let createSchema: any = await db.execute(this.createSchema);
+        await db.close();
+        if (createSchema.changes.changes < 0) {
+            return Promise.reject(new Error ("Erro no criação das tabelas"))
+        }
+    return Promise.resolve();    
     }
 }
 
